@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react"
+import { useRecoilState, useRecoilValue } from "recoil";
+import { themeState } from "../store/themeAtom";
 
 export const Navbar = () => {
-    const [theme,setTheme] = useState("black");
-    return <div className={`${theme === "white" ? "bg-white text-black" : "bg-black text-white" }`}>
+    const [theme,setTheme] = useRecoilState(themeState);
+    return <div className={`${theme === "light" ? "bg-white text-black" : "bg-#0a0a0a text-white" }`}>
         <div className="max-w-screen-lg mx-auto flex justify-between px-4 py-8">
             <div className="flex flex-row justify-center items-center gap-2">
                 <div>
@@ -13,23 +14,23 @@ export const Navbar = () => {
                     <h1 className="text-2xl font-semibold">Aksh</h1>
                 </div>
                 <div>
-                    <p className={`text-sm font-semibold border ${theme === "white" ? "bg-gray-200 border-gray-700" : "bg-gray-900 border-gray-100"} p-1 rounded-xl  `}>v1.1</p>
+                    <p className={`text-sm font-semibold border ${theme === "light" ? "bg-gray-200 border-gray-700" : "bg-gray-900 border-gray-100"} p-1 rounded-xl  `}>v1.1</p>
                 </div>
             </div>
             <div className="flex flex-row justify-center items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
                 </svg>
-                {theme === "white" && (
+                {theme === "light" && (
                         <button onClick={()=>{
-                            setTheme("black")
+                            setTheme("dark")
                         }}>
                         <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/1A1A1A/toggle-on.png" alt="toggle-on"/>
                         </button>
                 )}
-                {theme === "black" && (
+                {theme === "dark" && (
                         <button onClick={()=>{
-                            setTheme("white")
+                            setTheme("light")
                         }}>
                             <img width="50" height="50" src="https://img.icons8.com/officel/80/toggle-off.png" alt="toggle-off"/>
                         </button>
