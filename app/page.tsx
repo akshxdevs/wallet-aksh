@@ -9,12 +9,24 @@ export default function Home() {
   console.log(theme);
   
   return (
-    <div className={`${theme === "light" ? "bg-white text-black" : "bg-#0a0a0a text-white"}`}>
-      <Navbar/>
-      <WalletGenerator/>
-      {/* <div className="fixed sm:top-[130px] md:top-[460px] lg:top-[940px]">
-          <BottomText/>
-      </div> */}
+    // <div className={`${theme === "light" ? "bg-white text-black" : "bg-#0a0a0a text-white"}`}>
+    //   <Navbar/>
+    //   <WalletGenerator/>
+    //   <div className="relative w-full top-[1240px]">
+    //     <BottomText/>
+    //   </div>
+    // </div>
+    <div
+      className={`
+        min-h-screen flex flex-col
+        ${theme === "light" ? "bg-white text-black" : "bg-black text-white"}
+      `}
+    >
+      <Navbar />
+      <div className="flex-grow">
+        <WalletGenerator />
+      </div>
+      <BottomText />
     </div>
   );
 }

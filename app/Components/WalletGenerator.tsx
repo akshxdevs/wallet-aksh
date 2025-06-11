@@ -224,7 +224,7 @@ export const WalletGenerator = () => {
                     </div>
                 </div>
                 {WalletName === "Solana" ? (
-                    <div className="h-[700px]">
+                    <div>
                         {solwallets.length === 0 && <p>No wallets added yet.</p>}
                         {solwallets.map((wallet, index) => (
                             <div key={index} className="flex my-5 flex-col gap-5 border border-gray-800 rounded-xl">
@@ -330,7 +330,7 @@ export const WalletGenerator = () => {
                 )}
             </div>
         ):(
-            <div className="max-w-screen-lg mx-auto h-[1120px]">
+            <div className="max-w-screen-lg mx-auto">
                 <h1 className="text-4xl font-extrabold pb-1">Aksh supports multiple blockchains</h1>
                 <p className={`text-md ${theme === "light" ? "text-gray-900" : "text-gray-100" } pb-3`}>choose a blockchain to get started.</p>
                 <div className="flex gap-2">
