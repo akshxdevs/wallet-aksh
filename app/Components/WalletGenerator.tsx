@@ -31,6 +31,8 @@ export const WalletGenerator = () => {
     const [privateKeyVisibility, setPrivateKeyVisibility] = useState<boolean[]>([]);
     const [showMn,setShowMn] = useState(false);
     const [showDownArrow,setShowDownArrow] = useState(false);
+    const [copyStatus, setCopyStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
     const Uint8ArrayToBase58 = (arr: Uint8Array): string => {
         return bs58.encode(arr);
     };
@@ -70,7 +72,6 @@ export const WalletGenerator = () => {
             console.error("Mnemonic is not generated or invalid.");
             return;
         }
-
         try {
             const seed = ethers.Mnemonic.fromPhrase(mnemonic).computeSeed();
 
@@ -127,38 +128,83 @@ export const WalletGenerator = () => {
     setEthWallets(prevWallets => prevWallets.filter((_,i)=>i !== indexToDelete));
     setPrivateKeyVisibility(prevVisibility => prevVisibility.filter((_, i) => i !== indexToDelete));
     };
+    const copyMnemonicToClipboard = useCallback(async () => {
+        if (!mnemonic) {
+            setCopyStatus('error');
+            return;
+        }
+        try {
+            await navigator.clipboard.writeText(mnemonic);
+            setCopyStatus('success');
+            setTimeout(() => setCopyStatus('idle'), 2000);
+        } catch (err) {
+            console.error("Failed to copy mnemonic:", err);
+            setCopyStatus('error');
+            setTimeout(() => setCopyStatus('idle'), 2000);
+        }
+    }, [mnemonic]);
+
+    const mnemonicWords = mnemonic ? mnemonic.split(' ') : [];
     return <div>
         {WalletName ? (
-            <div className="max-w-screen-lg mx-auto">
-                <div className={`flex justify-between border ${theme === "light" ? "" :"border-gray-400 "} p-10 rounded-lg`}>
-                    <h1 className="text-2xl font-semibold">Your Seed Phrase</h1>
-                    {showDownArrow ? (
-                        <button onClick={()=>{
-                            setShowMn(false);
-                            setShowDownArrow(false);
-                        }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
-                            </svg>
-                        </button>
-                    ) :(
-                    <button onClick={()=>{
-                        setShowMn(true);
-                        setShowDownArrow(true);
-                        handleMnemonic()}}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                            </svg>
-                    </button>
-                    )}
-
-                </div>
-                <div className={``}>
-                    {showMn && (
-                        <div className="p-10">
-                            {mnemonic}
+            <div className="max-w-screen-lg max-h-screen-lg mx-auto my-auto">
+                <div className="border p-10 rounded-lg">
+                    <div className="flex justify-between">
+                        <div>
+                            <h1 className="text-2xl font-semibold">Your Seed Phrase</h1>
                         </div>
-                    )}
+                        <div>
+                            {showDownArrow ? (
+                                <button onClick={()=>{
+                                    setShowMn(false);
+                                    setShowDownArrow(false);
+                                }}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+                                    </svg>
+                                </button>
+                            ) :(
+                            <button onClick={()=>{
+                                setShowMn(true);
+                                setShowDownArrow(true);
+                                handleMnemonic()}}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                            </button>
+                            )}
+                        </div>
+                    </div>
+                        {showMn && (
+                            <div>
+                                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-5">
+                                    {mnemonicWords.map((word, index) => (
+                                        <div key={index} className={`text-center ${theme == "light" ? "bg-gray-200" : "bg-gray-900"}  py-2 px-4 rounded-lg text-md font-normal`}>
+                                            {word}
+                                        </div>
+                                    ))}
+                                </div>
+                                <button
+                                        onClick={copyMnemonicToClipboard}
+                                        className={`px-5 py-2 rounded-md ${theme === "light" ? "text-black" : "text-white"} font-medium
+                                            transition-colors duration-200
+                                            disabled:opacity-50 disabled:cursor-not-allowed
+                                        `}
+                                        disabled={!mnemonic || copyStatus === 'success'} 
+                                    >
+                                        <div className="flex justify-center items-center">
+                                            {theme == "light" ? (
+                                                <img width="28" height="28" src="https://img.icons8.com/fluency-systems-regular/48/copy--v1.png" alt="copy--v1"/>
+
+                                            ):(
+                                                <img width="28" height="28" src="https://img.icons8.com/fluency-systems-regular/48/FFFFFF/copy--v1.png" alt="copy--v1"/>
+                                            )}
+                                            <span>Click Anywhere To Copy</span>
+                                        </div>
+                                </button>
+                            </div>
+                        )}
+
                 </div>
                 <div className={`flex justify-between py-8`}>
                     <div>
@@ -178,7 +224,7 @@ export const WalletGenerator = () => {
                     </div>
                 </div>
                 {WalletName === "Solana" ? (
-                    <div>
+                    <div className="h-[700px]">
                         {solwallets.length === 0 && <p>No wallets added yet.</p>}
                         {solwallets.map((wallet, index) => (
                             <div key={index} className="flex my-5 flex-col gap-5 border border-gray-800 rounded-xl">
@@ -284,7 +330,7 @@ export const WalletGenerator = () => {
                 )}
             </div>
         ):(
-            <div className="max-w-screen-lg mx-auto">
+            <div className="max-w-screen-lg mx-auto h-[1120px]">
                 <h1 className="text-4xl font-extrabold pb-1">Aksh supports multiple blockchains</h1>
                 <p className={`text-md ${theme === "light" ? "text-gray-900" : "text-gray-100" } pb-3`}>choose a blockchain to get started.</p>
                 <div className="flex gap-2">
@@ -299,8 +345,5 @@ export const WalletGenerator = () => {
                 </div>
             </div>
         )}
-        <div>
-
-        </div>
     </div>
 }
