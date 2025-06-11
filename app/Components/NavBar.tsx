@@ -1,5 +1,5 @@
 "use client";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { themeState } from "../store/themeAtom";
 
 export const Navbar = () => {

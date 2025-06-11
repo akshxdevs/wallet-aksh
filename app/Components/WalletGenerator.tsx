@@ -8,7 +8,6 @@ import { mnemonicToSeedSync } from "bip39";
 import { derivePath } from "ed25519-hd-key";
 import { Keypair, PublicKey } from "@solana/web3.js";
 import { ethers } from 'ethers'; 
-import { Wallet, HDNodeWallet } from "ethers";
 import nacl from "tweetnacl";
 import bs58 from 'bs58'; 
 
