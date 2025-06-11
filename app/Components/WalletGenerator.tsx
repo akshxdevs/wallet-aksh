@@ -104,10 +104,12 @@ export const WalletGenerator = () => {
     }
 
     useEffect(()=>{
-        const savedWalletName = localStorage.getItem("walletName");
-        if (savedWalletName) setWalletName(savedWalletName)
-        const savedMn = localStorage.getItem("mnemonics");
-        if (savedMn) setMnemonic(savedMn)
+        if (typeof window !== 'undefined') {
+            const savedWalletName = localStorage.getItem("walletName");
+            if (savedWalletName) setWalletName(savedWalletName)
+            const savedMn = localStorage.getItem("mnemonics");
+            if (savedMn) setMnemonic(savedMn)
+        }
     },[]);
     const handleMnemonic = async() => {
         if (!mnemonic) {
@@ -209,7 +211,6 @@ export const WalletGenerator = () => {
                                 </button>
                             </div>
                         )}
-
                 </div>
                 <div className={`flex justify-between py-8`}>
                     <div>
@@ -217,7 +218,7 @@ export const WalletGenerator = () => {
                     </div>
                     <div className="flex gap-4">
                         <button className={`px-8 py-2 mb-2 ${theme === "light" ? "bg-black text-white" : "bg-gray-100 text-black" } rounded-lg`} onClick={()=>{
-                        WalletName === "Solana" ? addSolanaWallet : addEthereumWallet
+                          WalletName === "Solana" ? addSolanaWallet() : addEthereumWallet();
                         }}>Add Wallet</button>
                         <button className={`px-8 py-2 mb-2 ${theme === "light" ? "bg-green-800 text-white" : "bg-green-800 text-black" } rounded-lg`} onClick={()=>{
                             localStorage.clear();
