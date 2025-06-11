@@ -18,8 +18,8 @@ interface SolWalletInfo {
 }
 interface EthWalletInfo {
     address: string;
-    publicKey: string; // Changed from PublicKey to string
-    privateKey: string; // Since you're storing it for demonstration
+    publicKey: string;
+    privateKey: string; 
 }
 export const WalletGenerator = () => {
     const theme = useRecoilValue(themeState);
