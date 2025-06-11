@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import Image from 'next/image';
 import { themeState } from "../store/themeAtom";
 import { generateMnemonic } from "bip39";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { mnemonicToSeedSync } from "bip39";
 import { derivePath } from "ed25519-hd-key";
 import { Keypair, PublicKey } from "@solana/web3.js";
