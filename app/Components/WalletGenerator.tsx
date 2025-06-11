@@ -73,7 +73,7 @@ export const WalletGenerator = () => {
             return;
         }
         try {
-            const seed = ethers.Mnemonic.fromPhrase(mnemonic).computeSeed();
+            const seed = await ethers.Mnemonic.fromPhrase(mnemonic).computeSeed();
 
             const derivationPath = `m/44'/60'/${currentIndex}'/0/0`; 
             const hdNode = ethers.HDNodeWallet.fromSeed(seed);
@@ -82,11 +82,6 @@ export const WalletGenerator = () => {
             const privateKey = childWallet.privateKey;
             const publicKey = childWallet.publicKey; 
             const address = childWallet.address;
-
-            console.log("Generated Wallet Details:");
-            console.log("Private Key:", privateKey);
-            console.log("Public Key:", publicKey);
-            console.log("Address:", address);
 
             setEthWallets(prevWallets => [
                 ...prevWallets,
