@@ -1,6 +1,7 @@
 "use client";
 import { useRecoilState } from "recoil";
 import { themeState } from "../store/themeAtom";
+import Image from 'next/image';
 
 export const Navbar = () => {
     const [theme,setTheme] = useRecoilState(themeState);
@@ -25,14 +26,14 @@ export const Navbar = () => {
                         <button onClick={()=>{
                             setTheme("dark")
                         }}>
-                        <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/1A1A1A/toggle-on.png" alt="toggle-on"/>
+                        <Image width="50" height="50" src="https://img.icons8.com/ios-filled/50/1A1A1A/toggle-on.png" alt="toggle-on"/>
                         </button>
                 )}
                 {theme === "dark" && (
                         <button onClick={()=>{
                             setTheme("light")
                         }}>
-                            <img width="50" height="50" src="https://img.icons8.com/officel/80/toggle-off.png" alt="toggle-off"/>
+                            <Image width="50" height="50" src="https://img.icons8.com/officel/80/toggle-off.png" alt="toggle-off"/>
                         </button>
                 )}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
