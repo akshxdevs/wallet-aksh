@@ -9,7 +9,7 @@ export const Navbar = () => {
         <div className="max-w-screen-lg mx-auto flex justify-between px-4 py-8">
             <div className="flex flex-row justify-center items-center gap-2">
                 <div>
-                    <img width="48" height="48" src="https://img.icons8.com/color/48/cryptocurrency.png" alt="cryptocurrency"/>
+                    <Image width="48" height="48" src="https://img.icons8.com/color/48/cryptocurrency.png" alt="cryptocurrency"/>
                 </div>
                 <div>
                     <h1 className="text-2xl font-semibold">Aksh</h1>

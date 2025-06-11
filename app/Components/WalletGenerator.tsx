@@ -344,11 +344,11 @@ export const WalletGenerator = () => {
                     <button className={`px-8 py-2 mb-2 ${theme === "light" ? "bg-black text-white" : "bg-gray-100 text-black" } rounded-lg`} onClick={()=>{
                         const name = "Solana"
                         setWalletName(name)
-                        localStorage.setItem("walletName",name);}}>Solana</button>
+                        localStorage.setItem("walletName",name)}}>Solana</button>
                     <button className={`px-8 py-2 mb-2 ${theme === "light" ? "bg-black text-white" : "bg-gray-100 text-black" } rounded-lg`} onClick={()=>{
                         const name = "Ethereum"
                         setWalletName(name)
-                        localStorage.setItem("walletName",name);}}>Ethereum</button>
+                        localStorage.setItem("walletName",name)}}>Ethereum</button>
                 </div>
             </div>
         )}
