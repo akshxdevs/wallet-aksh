@@ -66,7 +66,7 @@ export const WalletGenerator = () => {
         }
       };
 
-    const addEthereumWallet = useCallback(async () => {
+    const addEthereumWallet = async () => {
         const mnemonic = await generateMnemonic();
         if (!mnemonic || typeof mnemonic !== 'string' || mnemonic.trim() === "") {
             console.error("Mnemonic is not generated or invalid.");
@@ -101,7 +101,7 @@ export const WalletGenerator = () => {
         } catch (err) {
             console.error("Error adding wallet:", err);
         }
-    }, [mnemonic, currentIndex]); 
+    }
 
     useEffect(()=>{
         const savedWalletName = localStorage.getItem("walletName");
@@ -128,7 +128,7 @@ export const WalletGenerator = () => {
     setEthWallets(prevWallets => prevWallets.filter((_,i)=>i !== indexToDelete));
     setPrivateKeyVisibility(prevVisibility => prevVisibility.filter((_, i) => i !== indexToDelete));
     };
-    const copyMnemonicToClipboard = useCallback(async () => {
+    const copyMnemonicToClipboard = async () => {
         if (!mnemonic) {
             setCopyStatus('error');
             return;
@@ -142,7 +142,7 @@ export const WalletGenerator = () => {
             setCopyStatus('error');
             setTimeout(() => setCopyStatus('idle'), 2000);
         }
-    }, [mnemonic]);
+    }
 
     const mnemonicWords = mnemonic ? mnemonic.split(' ') : [];
     return <div>
