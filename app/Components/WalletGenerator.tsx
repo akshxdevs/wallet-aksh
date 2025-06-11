@@ -147,7 +147,7 @@ export const WalletGenerator = () => {
     const mnemonicWords = mnemonic ? mnemonic.split(' ') : [];
     return <div>
         {WalletName ? (
-            <div className="max-w-screen-lg max-h-screen-lg mx-auto my-auto">
+            <div className="max-w-screen-lg max-h-screen-lg mx-auto my-auto animate-slideDown transition-all duration-800 ease-in-out">
                 <div className="border p-10 rounded-lg">
                     <div className="flex justify-between">
                         <div>
@@ -176,10 +176,15 @@ export const WalletGenerator = () => {
                         </div>
                     </div>
                         {showMn && (
-                            <div>
+                            <div className="animate-slideDown transition-all duration-100 ease-in-out">
                                 <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-5">
                                     {mnemonicWords.map((word, index) => (
-                                        <div key={index} className={`text-center ${theme == "light" ? "bg-gray-200" : "bg-gray-900"}  py-2 px-4 rounded-lg text-md font-normal`}>
+                                        <div
+                                        key={index}
+                                        className={`text-center ${
+                                            theme === 'light' ? 'bg-gray-200' : 'bg-gray-900'
+                                        } py-2 px-4 rounded-lg text-md font-normal transition-all ease-in duration-200`}
+                                        >
                                             {word}
                                         </div>
                                     ))}
@@ -220,14 +225,16 @@ export const WalletGenerator = () => {
                             setShowMn(false);
                             setShowDownArrow(false)
                             setMnemonic("");
+                            setEthWallets([]);
+                            setSolWallets([]);
                         }}>Clear Wallets</button>
                     </div>
                 </div>
                 {WalletName === "Solana" ? (
-                    <div>
-                        {solwallets.length === 0 && <p>No wallets added yet.</p>}
+                    <div className="">
+                        {solwallets.length === 0 && <p className="animate-slideDown transition-all duration-800 ease-in-out">No wallets added yet.</p>}
                         {solwallets.map((wallet, index) => (
-                            <div key={index} className="flex my-5 flex-col gap-5 border border-gray-800 rounded-xl">
+                            <div key={index} className="flex my-5 flex-col gap-5 border border-gray-800 rounded-xl animate-slideUp transition-all duration-800 ease-in-out">
                                 <div className="flex justify-between">
                                     <div>
                                         <h1 className="text-3xl px-8 pt-5">Wallet {index + 1}</h1>
@@ -277,9 +284,9 @@ export const WalletGenerator = () => {
                     </div>
                 ):(
                     <div>
-                        {ethwallets.length === 0 && <p>No wallets added yet.</p>}
+                        {ethwallets.length === 0 && <p className="animate-slideDown transition-all duration-800 ease-in-out">No wallets added yet.</p>}
                         {ethwallets.map((wallet, index) => (
-                            <div key={index} className="flex my-5 flex-col gap-5 border border-gray-800 rounded-xl">
+                            <div key={index} className="flex my-5 flex-col gap-5 border border-gray-800 rounded-xl animate-slideUp transition-all duration-800 ease-in-out">
                                 <div className="flex justify-between">
                                     <div>
                                         <h1 className="text-3xl px-8 pt-5">Wallet {index + 1}</h1>
@@ -330,7 +337,7 @@ export const WalletGenerator = () => {
                 )}
             </div>
         ):(
-            <div className="max-w-screen-lg mx-auto">
+            <div className="max-w-screen-lg mx-auto animate-slideDown transition-all duration-800 ease-in-out">
                 <h1 className="text-4xl font-extrabold pb-1">Aksh supports multiple blockchains</h1>
                 <p className={`text-md ${theme === "light" ? "text-gray-900" : "text-gray-100" } pb-3`}>choose a blockchain to get started.</p>
                 <div className="flex gap-2">
