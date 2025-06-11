@@ -1,7 +1,6 @@
 "use client";
 import { useRecoilState } from "recoil";
 import { themeState } from "../store/themeAtom";
-import Image from 'next/image';
 
 export const Navbar = () => {
     const [theme,setTheme] = useRecoilState(themeState);
@@ -9,7 +8,7 @@ export const Navbar = () => {
         <div className="max-w-screen-lg mx-auto flex justify-between px-4 py-8">
             <div className="flex flex-row justify-center items-center gap-2">
                 <div>
-                    <Image width="48" height="48" src="https://img.icons8.com/color/48/cryptocurrency.png" alt="cryptocurrency"/>
+                    <img width="48" height="48" src="https://img.icons8.com/color/48/cryptocurrency.png" alt="cryptocurrency"/>
                 </div>
                 <div>
                     <h1 className="text-2xl font-semibold">Aksh</h1>
@@ -26,14 +25,14 @@ export const Navbar = () => {
                         <button onClick={()=>{
                             setTheme("dark")
                         }}>
-                        <Image width="50" height="50" src="https://img.icons8.com/ios-filled/50/1A1A1A/toggle-on.png" alt="toggle-on"/>
+                        <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/1A1A1A/toggle-on.png" alt="toggle-on"/>
                         </button>
                 )}
                 {theme === "dark" && (
                         <button onClick={()=>{
                             setTheme("light")
                         }}>
-                            <Image width="50" height="50" src="https://img.icons8.com/officel/80/toggle-off.png" alt="toggle-off"/>
+                            <img width="50" height="50" src="https://img.icons8.com/officel/80/toggle-off.png" alt="toggle-off"/>
                         </button>
                 )}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">

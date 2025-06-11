@@ -1,7 +1,6 @@
 "use client";
 
 import { useRecoilValue } from "recoil";
-import Image from 'next/image';
 import { themeState } from "../store/themeAtom";
 import { generateMnemonic } from "bip39";
 import { useEffect, useState } from "react";
@@ -196,10 +195,10 @@ export const WalletGenerator = () => {
                                     >
                                         <div className="flex justify-center items-center">
                                             {theme == "light" ? (
-                                                <Image width="28" height="28" src="https://Image.icons8.com/fluency-systems-regular/48/copy--v1.png" alt="copy--v1"/>
+                                                <img width="28" height="28" src="https://img.icons8.com/fluency-systems-regular/48/copy--v1.png" alt="copy--v1"/>
 
                                             ):(
-                                                <Image width="28" height="28" src="https://Image.icons8.com/fluency-systems-regular/48/FFFFFF/copy--v1.png" alt="copy--v1"/>
+                                                <img width="28" height="28" src="https://img.icons8.com/fluency-systems-regular/48/FFFFFF/copy--v1.png" alt="copy--v1"/>
                                             )}
                                             <span>Click Anywhere To Copy</span>
                                         </div>
@@ -241,7 +240,7 @@ export const WalletGenerator = () => {
                                     </div>
                                     <div>
                                         <button className="px-8 pt-5" onClick={()=>{ deleteWallet(index)}}>
-                                            <Image width="24" height="24" src="https://Image.icons8.com/material-rounded/24/40C057/waste.png" alt="waste"/>
+                                            <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/40C057/waste.png" alt="waste"/>
                                         </button>
                                     </div>
                                 </div>
@@ -293,7 +292,7 @@ export const WalletGenerator = () => {
                                     </div>
                                     <div>
                                         <button className="px-8 pt-5" onClick={()=>{ deleteWallet(index)}}>
-                                            <Image width="24" height="24" src="https://Image.icons8.com/material-rounded/24/40C057/waste.png" alt="waste"/>
+                                            <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/40C057/waste.png" alt="waste"/>
                                         </button>
                                     </div>
                                 </div>
