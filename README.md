@@ -1,36 +1,191 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wallet-Aksh
+
+A Solana wallet management dApp for connecting, viewing balances, and performing basic transactions. Powered by Next.js and Solana Web3.js.
+
+## Overview
+
+Wallet-Aksh is a personalized Solana wallet interface that enables seamless connection to popular wallets like Phantom, displays real-time balances, facilitates airdrops on devnet, and supports token transfers and message signing. Designed as a customizable starter for Akash's Web3 projects, it provides an intuitive UI for testing and integrating wallet functionalities in Solana dApps.
 
 ## Getting Started
 
-First, run the development server:
+1\. Set up environment variables by creating a `.env.local` file in the root directory:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Required: Solana RPC endpoint (devnet for testing)
+
+NEXT_PUBLIC_SOLANA_RPC_URL=https://api.devnet.solana.com
+
+# Optional: Custom wallet theme or icons
+
+NEXT_PUBLIC_WALLET_THEME=aksh-purple
+
+# Optional: Airdrop configuration for devnet SOL
+
+NEXT_PUBLIC_AIRDROP_AMOUNT=1
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2\. Install the dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+npm install
+
+# or
+
+yarn install
+
+# or
+
+pnpm install
+
+```
+
+3\. Run the development server:
+
+```bash
+
+npm run dev
+
+# or
+
+yarn dev
+
+# or
+
+pnpm dev
+
+```
+
+4\. Open [http://localhost:3000](http://localhost:3000) to see the demo app.
+
+## Integration Guide
+
+### 1. Configure Wallet Adapters
+
+Update `app/providers.tsx` to define supported wallets:
+
+```typescript
+
+// app/providers.tsx
+
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
+
+export default function Providers({ children }: { children: React.ReactNode }) {
+
+  const network = WalletAdapterNetwork.Devnet;
+
+  const endpoint = process.env.NEXT_PUBLIC_SOLANA_RPC_URL || 'https://api.devnet.solana.com';
+
+  const wallets = [new PhantomWalletAdapter()];
+
+  return (
+
+    <ConnectionProvider endpoint={endpoint}>
+
+      <WalletProvider wallets={wallets} autoConnect>
+
+        {children}
+
+      </WalletProvider>
+
+    </ConnectionProvider>
+
+  );
+
+}
+
+```
+
+### 2. Embed the Wallet Component
+
+Incorporate the wallet features into your page.
+
+```tsx
+
+// In app/page.tsx
+
+import { useWallet } from '@solana/wallet-adapter-react';
+
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+
+import { BalanceView, AirdropBtn, TransferForm } from '@/components/wallet';
+
+export default function WalletPage() {
+
+  const { publicKey } = useWallet();
+
+  return (
+
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 to-indigo-900 p-8">
+
+      <h1 className="text-4xl font-bold text-white mb-8">Wallet Aksh - Solana Hub</h1>
+
+      <WalletMultiButton className="mb-4" />
+
+      {publicKey && (
+
+        <div className="space-y-4">
+
+          <BalanceView />
+
+          <AirdropBtn />
+
+          <TransferForm />
+
+        </div>
+
+      )}
+
+    </div>
+
+  );
+
+}
+
+```
+
+### 3. Customize the Look
+
+Built with Tailwind CSS and Geist font. Customize through:
+
+- Tailwind classes in `globals.css`
+
+- Theme props on components
+
+- Vercel previews for live tweaks
+
+## Features
+
+- 👛 Wallet connection with auto-detect
+
+- 💰 Live SOL and token balance fetching
+
+- 🪂 One-click devnet airdrops
+
+- 📱 Mobile-responsive design
+
+- 🔐 Secure message signing
+
+- 🎨 Custom Aksh-themed gradients
+
+- 🚀 Quick transaction builder
+
+- ⚡️ Real-time notifications
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+- [Project Demo](https://wallet-aksh.vercel.app)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Solana Wallet Docs](https://docs.solana.com/wallet-guide)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [Next.js Solana Integration](https://nextjs.org/docs)
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
