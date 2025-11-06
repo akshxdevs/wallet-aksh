@@ -8,25 +8,7 @@ Wallet-Aksh is a personalized Solana wallet interface that enables seamless conn
 
 ## Getting Started
 
-1\. Set up environment variables by creating a `.env.local` file in the root directory:
-
-```bash
-
-# Required: Solana RPC endpoint (devnet for testing)
-
-NEXT_PUBLIC_SOLANA_RPC_URL=https://api.devnet.solana.com
-
-# Optional: Custom wallet theme or icons
-
-NEXT_PUBLIC_WALLET_THEME=aksh-purple
-
-# Optional: Airdrop configuration for devnet SOL
-
-NEXT_PUBLIC_AIRDROP_AMOUNT=1
-
-```
-
-2\. Install the dependencies:
+1\. Install the dependencies:
 
 ```bash
 
@@ -42,7 +24,7 @@ pnpm install
 
 ```
 
-3\. Run the development server:
+2\. Run the development server:
 
 ```bash
 
@@ -58,7 +40,7 @@ pnpm dev
 
 ```
 
-4\. Open [http://localhost:3000](http://localhost:3000) to see the demo app.
+3\. Open [http://localhost:3000](http://localhost:3000) to see the demo app.
 
 ## Integration Guide
 
